@@ -20,7 +20,7 @@ galleryRouter.post('/api/gallery', bearerAuth, jsonParser, function(req, res, ne
 });
 
 
-galleryRouter.get('api/gallery/:galleryId', bearerAuth, function(req, res, next) {
+galleryRouter.get('/api/gallery/:galleryId', bearerAuth, function(req, res, next) {
   debug('GET: /api/gallery/:galleryId');
 
   Gallery.findById(req.params.galleryId)
