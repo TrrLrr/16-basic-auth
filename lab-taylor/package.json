@@ -7,8 +7,8 @@
     "lib": "lib"
   },
   "scripts": {
-    "test": "DEBUG='instaclone' jest",
-    "start": "DEBUG='instaclone' node server.js"
+    "test": "DEBUG='instaclone*' jest",
+    "start": "DEBUG='instaclone*' node server.js"
   },
   "keywords": [],
   "author": "",
@@ -29,5 +29,8 @@
     "eslint": "^4.18.2",
     "jest": "^22.4.2",
     "superagent": "^3.8.2"
+  },
+  "jest": {
+    "testEnvironment": "node"
   }
 }
