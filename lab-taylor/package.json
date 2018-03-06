@@ -8,6 +8,7 @@
   },
   "scripts": {
     "test": "DEBUG='instaclone*' jest",
+    "coverage": "DEBUG='instaclone*' jest --coverage",
     "start": "DEBUG='instaclone*' node server.js"
   },
   "keywords": [],
