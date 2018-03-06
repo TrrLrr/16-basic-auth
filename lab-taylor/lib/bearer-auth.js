@@ -2,7 +2,7 @@
 
 const jwt = require('jsonwebtoken');
 const createError = require('http-errors');
-const debug = require('debug')('cfgram:bearer-auth');
+const debug = require('debug')('instaclone:bearer-auth');
 
 const User = require('../model/user.js');
 
