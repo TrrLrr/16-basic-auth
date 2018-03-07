@@ -85,6 +85,7 @@ describe('Gallery Routes', function() {
             })
             .end((err, res) => {
               expect(res.status).toEqual(401);
+              expect(err.message).toEqual('Unauthorized');
               done();
             });
         });
@@ -98,6 +99,7 @@ describe('Gallery Routes', function() {
             })
             .end((err, res) => {
               expect(res.status).toEqual(400);
+              expect(err.message).toEqual('Bad Request');
               done();
             });
         });
@@ -157,6 +159,7 @@ describe('Gallery Routes', function() {
           })
           .end((err, res) => {
             expect(res.status).toEqual(401);
+            expect(err.message).toEqual('Unauthorized');
             done();
           });
       });
@@ -169,6 +172,7 @@ describe('Gallery Routes', function() {
           })
           .end((err, res) => {
             expect(res.status).toEqual(404);
+            expect(err.message).toEqual('Not Found');
             done();
           });
       });
@@ -214,6 +218,7 @@ describe('Gallery Routes', function() {
             expect(res.status).toEqual(200);
             expect(res.body.name).toEqual(galleryUpdate.name);
             expect(res.body.desc).toEqual(galleryUpdate.desc);
+            expect(res.body.userID).toEqual(this.tempUser._id.toString());
             done();
           });
       });
@@ -254,6 +259,7 @@ describe('Gallery Routes', function() {
           })
           .end((err, res) => {
             expect(res.status).toEqual(401);
+            expect(err.message).toEqual('Unauthorized');
             done();
           });
       });
@@ -279,6 +285,7 @@ describe('Gallery Routes', function() {
           })
           .end((err, res) => {
             expect(res.status).toEqual(404);
+            expect(err.message).toEqual('Not Found');
             done();
           });
       });
@@ -334,6 +341,7 @@ describe('Gallery Routes', function() {
           })
           .end((err, res) => {
             expect(res.status).toEqual(404);
+            expect(err.message).toEqual('Not Found');
             done();
           });
       });
@@ -346,6 +354,7 @@ describe('Gallery Routes', function() {
           })
           .end((err, res) => {
             expect(res.status).toEqual(401);
+            expect(err.message).toEqual('Unauthorized');
             done();
           });
       });
@@ -353,3 +362,4 @@ describe('Gallery Routes', function() {
   });
 });
 
+            
