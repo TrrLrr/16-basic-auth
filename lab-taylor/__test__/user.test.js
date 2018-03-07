@@ -73,7 +73,6 @@ describe('User Routes', function() {
           .catch(done);
       });
       
-
       it('should return a token', done => {
         request.get(`${url}/api/login`)
           .auth('exampleUser', '1234')
@@ -85,7 +84,7 @@ describe('User Routes', function() {
           });
       });
     });
-    describe('with invalid body', function() {
+    describe('with missing body', function() {
       it('should return a 401 status', done => {
         request.get(`${url}/api/login`)
           .auth('', '')
@@ -95,8 +94,36 @@ describe('User Routes', function() {
           });
       });
     });
+    describe('with invalid password', function() {
+      beforeEach( done => {
+        let user = new User(exampleUser);
+        user.generatePasswordHash(exampleUser.password)
+          .then( user => user.save())
+          .then( user => {
+            this.tempUser = user;
+            done();
+          })
+          .catch(done);
+      });
+      
+      afterEach( done => {
+        User.remove({})
+          .then( () => done())
+          .catch(done);
+      });
+      it('should return a 401 status', done => {
+        request.get(`${url}/api/login`)
+          .auth('exampleUser', '4321')
+          .end((err, res) => {
+            expect(res.status).toEqual(401);
+            expect(err.message).toEqual('Unauthorized');
+            done();
+          });
+      });
+    });
   });
 });
+            
               
 
             
@@ -105,3 +132,4 @@ describe('User Routes', function() {
     
 
             
+
