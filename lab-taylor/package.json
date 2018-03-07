@@ -7,8 +7,8 @@
     "lib": "lib"
   },
   "scripts": {
-    "test": "DEBUG='instaclone*' jest",
-    "verbose": "DEBUG='instaclone*' jest --verbose",
+    "test": "DEBUG='instaclone*' jest -i --verbose",
+    "silent": "DEBUG='instaclone*' jest -i",
     "coverage": "DEBUG='instaclone*' jest --coverage",
     "start": "DEBUG='instaclone*' node server.js"
   },
