@@ -56,8 +56,17 @@ picRouter.post('/api/gallery/:galleryId/pic', bearerAuth, upload.single('image')
       del([`${dataDir}/*`]);
 
       let picData = {
-        
-      }
+        name: req.body.name,
+        desc: req.body.desc,
+        objectKey: s3data.Key,
+        imageURI: s3data.Location,
+        userID: req.user._id,
+        galleryId: req.params.galleryId,
+      };
+
+      return new Pic(picData).save();
     })
+    .then( pic => res.json(pic))
+    .catch( err => next(err));
 });
       
