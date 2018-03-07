@@ -1,7 +1,6 @@
 'use strict';
 
 const request = require('superagent');
-//const mongoose = require('mongoose');
 const serverToggle = require('../lib/server-toggle.js');
 const server = require('../server.js');
 
@@ -282,8 +281,75 @@ describe('Gallery Routes', function() {
             expect(res.status).toEqual(404);
             done();
           });
+      });
+    });
+  });
+  describe('DELETE: /api/gallery/galleryid', () => {
+    beforeEach( done => {
+      new User(exampleUser)
+        .generatePasswordHash(exampleUser.password)
+        .then( user => {
+          this.tempUser = user;
+          return user.generateToken();
+        })
+        .then( token => {
+          this.tempToken = token;
+          done();
+        })
+        .catch(done);
+    });
 
+    beforeEach( done => {
+      exampleGallery.userID = this.tempUser._id.toString();
+      new Gallery(exampleGallery).save()
+        .then( gallery => {
+          this.tempGallery = gallery;
+          done();
+        })
+        .catch(done);
+    });
+
+    afterEach( () => {
+      delete exampleGallery.userID;
+    });
+    describe('with a valid endpoint', () => {
+
+      it('should delete a gallery', done => {
+        request.delete(`${url}/api/gallery/${this.tempGallery._id}`)
+          .set({
+            Authorization: `Bearer ${this.tempToken}`,
+          })
+          .end((err, res) => {
+            if(err) return done(err);
+            expect(res.status).toEqual(204);
+            done();
+          });
+      });
+    });
+    describe('with an invalid endpoint', () =>{
+      it('should return a 404 status', done => {
+        request.delete(`${url}/api/gallery/`)
+          .set({
+            Authorization: `Bearer ${this.tempToken}`,
+          })
+          .end((err, res) => {
+            expect(res.status).toEqual(404);
+            done();
+          });
+      });
+    });
+    describe('with no token', () => {
+      it('should return a 401 status', done => {
+        request.delete(`${url}/api/gallery/${this.tempGallery._id}`)
+          .set({
+            Authorization: ``,
+          })
+          .end((err, res) => {
+            expect(res.status).toEqual(401);
+            done();
+          });
       });
     });
   });
 });
+

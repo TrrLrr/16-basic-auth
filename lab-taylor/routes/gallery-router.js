@@ -39,3 +39,11 @@ galleryRouter.put('/api/gallery/:galleryId', bearerAuth, jsonParser, function(re
     .catch(next);
 });
 
+galleryRouter.delete('/api/gallery/:galleryId', bearerAuth, function(req, res, next) {
+  debug('DELETE: /api/gallery/galleryId');
+
+  Gallery.findByIdAndRemove(req.params.galleryId)
+    .then( () => res.sendStatus(204))
+    .catch(next);
+});
+
