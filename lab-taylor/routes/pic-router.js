@@ -22,7 +22,7 @@ const upload = multer({ dest: dataDir });
 
 function s3uploadProm(params) {
   debug('s3uploadProm');
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve) => {
     s3.upload(params, (err, s3data) => {
       resolve(s3data);
     });
