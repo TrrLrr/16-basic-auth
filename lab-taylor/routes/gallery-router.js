@@ -28,4 +28,14 @@ galleryRouter.get('/api/gallery/:galleryId', bearerAuth, function(req, res, next
     .catch(next);
 });
 
+galleryRouter.put('/api/gallery/:galleryId', bearerAuth, jsonParser, function(req, res, next) {
+  debug('PUT: /api/gallery/:galleryId');
+
+  if(!req.body.name) return next(createError(400, 'bad request'));
+  if(!req.body.desc) return next(createError(400, 'bad request'));
+
+  Gallery.findByIdAndUpdate(req.params.galleryId, req.body, { new: true })
+    .then( gallery => res.json(gallery))
+    .catch(next);
+});
 
