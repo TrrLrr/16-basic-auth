@@ -29,14 +29,38 @@ As this is a rolling application, the only resource at the moment is a User reso
 
 #### GET
 
-The get route can be hit at...
+The get route for users can be hit at...
 ```
 http://localhost:3000/api/login
 ```
 
+For galleries... 
+```
+http://localhost:3000/api/gallery/<galleryid>
+```
+
 #### POST
 
-The post route can be hit at...
+The post route for users can be hit at...
 ```
 http://localhost:3000/api/signup
+```
+
+For galleries
+```
+http://localhost:3000/api/gallery
+```
+
+#### PUT 
+
+The route for updating galleries is ...
+```
+http://localhost:3000/api/gallery/<galleryId>
+```
+
+#### DELETE
+
+The route to delete galleries
+```
+http://localhost:3000/api/gallery/<galleryId>
 ```
