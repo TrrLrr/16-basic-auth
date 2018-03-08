@@ -16,6 +16,9 @@ This app has several dependencies...
  - `jsonwebtoken`
  - `morgan`
  - `mongoose`
+ - `multer`
+ - `del`
+ - `aws-sdk`
 
  Dev Dependencies
 
