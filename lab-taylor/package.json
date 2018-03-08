@@ -7,9 +7,9 @@
     "lib": "lib"
   },
   "scripts": {
-    "test": "DEBUG='instaclone*' jest -i --verbose",
+    "test": "DEBUG='instaclone*' jest -i --coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
     "silent": "DEBUG='instaclone*' jest -i",
-    "coverage": "DEBUG='instaclone*' jest --coverage",
+    "coverage": "DEBUG='instaclone*' jest -i --coverage",
     "start": "DEBUG='instaclone*' node server.js"
   },
   "keywords": [],
@@ -20,11 +20,13 @@
     "bcrypt": "^1.0.3",
     "body-parser": "^1.18.2",
     "cors": "^2.8.4",
+    "coveralls": "^3.0.0",
     "debug": "^3.1.0",
     "del": "^3.0.0",
     "dotenv": "^5.0.1",
     "express": "^4.16.2",
     "http-errors": "^1.6.2",
+    "istanbul": "^0.4.5",
     "jsonwebtoken": "^8.2.0",
     "mongoose": "^5.0.9",
     "morgan": "^1.9.0",
