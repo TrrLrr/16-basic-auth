@@ -8,10 +8,12 @@ const serverToggle = require('../lib/server-toggle.js');
 const Pic = require('../model/pic.js');
 const User = require('../model/user.js');
 const Gallery = require('../model/gallery.js');
+const PORT = process.env.PORT || 3000;
+
 
 require('jest');
 
-const url = 'http://localhost:3000';
+const url = `http://localhost:${PORT}`;
 
 const exampleUser = {
   username: 'Teacup Timmy',
