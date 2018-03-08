@@ -50,34 +50,34 @@ describe('Pic Routes', function() {
   });
 
   describe('POST: /api/gallery/galleryId/pic', function() {
-    describe('with a valid token and valid data', function() {
-      beforeEach( done => {
-        new User(exampleUser)
-          .generatePasswordHash(exampleUser.password)
-          .then( user => user.save())
-          .then( user => {
-            this.tempUser = user;
-            return user.generateToken();
-          })
-          .then( token => {
-            this.tempToken = token;
-            done();
-          })
-          .catch(done);
-      });
-      beforeEach( done => {
-        exampleGallery.userID = this.tempUser._id.toString();
-        new Gallery(exampleGallery).save()
-          .then( gallery => {
-            this.tempGallery = gallery;
-            done();
-          })
-          .catch(done);
-      });
-      afterEach( done => {
-        delete exampleGallery.userID;
-        done();
-      });
+    beforeEach( done => {
+      new User(exampleUser)
+        .generatePasswordHash(exampleUser.password)
+        .then( user => user.save())
+        .then( user => {
+          this.tempUser = user;
+          return user.generateToken();
+        })
+        .then( token => {
+          this.tempToken = token;
+          done();
+        })
+        .catch(done);
+    });
+    beforeEach( done => {
+      exampleGallery.userID = this.tempUser._id.toString();
+      new Gallery(exampleGallery).save()
+        .then( gallery => {
+          this.tempGallery = gallery;
+          done();
+        })
+        .catch(done);
+    });
+    afterEach( done => {
+      delete exampleGallery.userID;
+      done();
+    });
+    describe('with a valid token and valid data', () => {
       it('should reurn an object containing url', done => {
         request.post(`${url}/api/gallery/${this.tempGallery._id}/pic`)
           .set({
@@ -96,6 +96,21 @@ describe('Pic Routes', function() {
           });
       });
     });
+    describe('without a valid token', () => {
+      it('should reurn an object containing url', done => {
+        request.post(`${url}/api/gallery/${this.tempGallery._id}/pic`)
+          .set({
+            Authorization: ``,
+          })
+          .end((err, res) => {
+            expect(res.status).toEqual(401);
+            expect(err.message).toEqual('Unauthorized');
+            done();
+          });
+      });
+    });
   });
 });
+          
+  
             

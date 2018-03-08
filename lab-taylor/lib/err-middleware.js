@@ -6,9 +6,6 @@ const debug = require('debug')('instaclone:errors');
 module.exports = function(err, req, res, next) {
   debug('error middleware');
 
-  console.error('msg', err.message);
-  console.error('name', err.name);
-
   if(err.status) {
     res.status(err.status).send(err.name);
     next();
@@ -26,3 +23,4 @@ module.exports = function(err, req, res, next) {
   res.status(err.status).send(err.name);
   next();
 };
+  

@@ -23,7 +23,7 @@ const upload = multer({ dest: dataDir });
 function s3uploadProm(params) {
   debug('s3uploadProm');
   
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve) => {
     s3.upload(params, (err, s3data) => {
       resolve(s3data);
     });
@@ -53,7 +53,6 @@ picRouter.post('/api/gallery/:galleryId/pic', bearerAuth, upload.single('image')
   Gallery.findById(req.params.galleryId)
     .then( () => s3uploadProm(params))
     .then( s3data => {
-      console.log('s3 res:', s3data);
       del([`${dataDir}/*`]);
 
       let picData = {
@@ -70,4 +69,28 @@ picRouter.post('/api/gallery/:galleryId/pic', bearerAuth, upload.single('image')
     .then( pic => res.json(pic))
     .catch( err => next(err));
 });
+      
+
+
+//######################### DELETE ROUTE? ###########################################
+picRouter.delete('/api/gallery/:galleryId/pic/:picId', bearerAuth, function(req, res, next) {
+  debug('DELETE: /api/gallery/galleryId/pic/picId');
+
+  Pic.findById(req.params.picId)
+    .then( pic => {
+      let fileName = pic.imageURI.split('https://s3-us-west-2.amazonaws.com/coolinstaclone/')[1];
+    
+      let params = {
+        Bucket: process.env.AWS_BUCKET,
+        Key: `${fileName}`,
+      };
+      s3.deleteObject(params).Promise();  
+    })
+    .catch( err => next(err));
+      
+});
+  
+
+  
+
       
