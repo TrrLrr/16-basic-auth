@@ -7,7 +7,6 @@ const morgan = require('morgan');
 const mongoose = require('mongoose');
 const cors = require('cors');
 
-const welcomeRouter = require('./routes/welcome-router.js');
 const userRouter = require('./routes/user-router.js');
 const galleryRouter = require('./routes/gallery-router.js');
 const picRouter = require('./routes/pic-router.js');
@@ -19,13 +18,17 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 mongoose.connect(process.env.MONGODB_URI);
 
+app.get('/', (req, res) => {
+  res.send('Welcome to the back end for Instaclone!!!');
+});
+
 app.use(cors());
 app.use(morgan('dev'));
-app.use(welcomeRouter);
 app.use(userRouter);
 app.use(galleryRouter);
 app.use(picRouter);
 app.use(errors);
+
 
 const server = module.exports = app.listen(PORT, () => {
   debug(`Server listening on ${PORT}`);
