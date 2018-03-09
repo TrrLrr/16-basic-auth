@@ -37,7 +37,7 @@ userRouter.get('/api/login', basicAuth, function(req, res, next) {
     .catch(next);
 });
 
-userRouter.delete('api/user/:userId', basicAuth, function(req, res, next) {
+userRouter.delete('/api/user/:userId', basicAuth, function(req, res, next) {
   debug('DELETE: /api/user/userId');
 
   User.findByIdAndRemove(req.params.userId)
